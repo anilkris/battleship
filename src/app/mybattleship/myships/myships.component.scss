@@ -1,0 +1,44 @@
+.ships {
+  display: grid;
+  grid-template-columns:  repeat(11, 1fr);
+  grid-template-rows:  repeate(11, 1fr);
+  justify-content: center;
+  height: 500px;
+  .column-labels {
+    grid-row: 1;
+    grid-column: 2/11;
+    display: flex;
+    flex-direction: row;
+    flex-grow:1;
+    justify-content: space-around;
+    border: 1px solid green;
+  }
+  .row-labels {
+    grid-column: 1;
+    grid-row: 2/12;
+
+    display: grid;
+    align-items: space-around;
+    *{
+        text-align:left;
+        padding-top: 10px;
+        padding-left: 10px;
+
+    }
+  }
+
+  .ships-area {
+      grid-area:2/2/11/11;
+    .row {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: space-between;
+      .column {
+        height: 60px;
+        width: 60px;
+        border: 1px solid blue;
+      }
+    }
+  }
+}

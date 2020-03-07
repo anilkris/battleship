@@ -1,0 +1,28 @@
+      <h2> Ships</h2>
+  <div class="ships">
+
+    
+    <div class="column-labels">
+       <div *ngFor="let col of columns">
+        {{col}}
+        </div>
+    </div>
+      <div class="row-labels">
+
+      <div *ngFor="let row of rows">
+          {{row}}
+      </div>
+      </div>
+
+      <div class="ships-area">
+
+      <div class="row" *ngFor="let data of grids; let i = index">
+            <div class="column" *ngFor="let cell of data; let j=index">
+                {{rows[i]}}{{j}}
+            </div>
+      </div>
+
+      </div>
+
+  </div>
+  
