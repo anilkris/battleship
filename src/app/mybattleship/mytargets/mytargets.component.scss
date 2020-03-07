@@ -1,3 +1,32 @@
+h2{
+    text-align: center;
+}
+
+.targets-area {
+    display: grid;
+    grid-template-columns:  repeat(10, minmax(3rem,1fr));
+   ::before {
+        content: '';
+        width: 0;
+        padding-bottom: 100%;
+        grid-row: 1 / 1;
+        grid-column: 1 / 1;
+      }
+      :first-child {
+        grid-row: 1 / 1;
+        grid-column: 1 / 1;
+      }
+        * {
+        background: rgba(0,0,0,0.1);
+        border: 1px white solid;
+        height: 60px;
+        :hover{
+            background-color: rgb(106, 136, 156);
+        }
+      }
+
+}
+/*
 .targets {
     display: grid;
     grid-template-columns:  repeat(11, 1fr);
@@ -35,11 +64,11 @@
         justify-content: space-between;
         align-items: space-between;
         .column {
-          height: 30px;
-          width: 30px;
+          height: 60px;
+          width: 60px;
           border: 1px solid blue;
         }
       }
     }
   }
-  
+ */ 

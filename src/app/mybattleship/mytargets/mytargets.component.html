@@ -1,7 +1,8 @@
 
       <h2> Targets</h2>
 <div class="targets">
-      
+    <!--  
+
     <div class="column-labels">
         <div *ngFor="let col of columns">
          {{col}}
@@ -14,11 +15,12 @@
        </div>
        </div>
  
+    -->  
        <div class="targets-area">
  
        <div class="row" *ngFor="let data of grids; let i = index">
              <div class="column" *ngFor="let cell of data; let j=index">
-                 {{rows[i]}}{{j}}
+                 {{rows[j]}}{{i+1}}
              </div>
        </div>
        </div>
