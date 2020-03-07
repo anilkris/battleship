@@ -1,21 +1,6 @@
       <h2> Ships</h2>
   <div class="ships">
-
-   <!-- 
-
-    <div class="column-labels">
-       <div *ngFor="let col of columns">
-        {{col}}
-        </div>
-    </div>
-      <div class="row-labels">
-
-      <div *ngFor="let row of rows">
-          {{row}}
-      </div>
-      </div>
-
-   --> 
+   
       <div class="ships-area">
 
       <div class="row" *ngFor="let data of grids; let i = index">
@@ -23,6 +8,22 @@
                 {{rows[j]}}{{i+1}}
             </div>
       </div>
+
+      </div>
+      <div class="ship-status">
+        <!-- 
+            destroyer = 2 
+            cruiser = 3
+            sub =3
+            batt = 4
+            carrier =5
+
+        -->
+        <button mat-raised-button color="primary" class="destroyer" (click)="onDestroyerClick()">Destroyer</button>
+        <button mat-raised-button color="primary" class="cruiser" (click)="onDestroyerClick()">Cruiser</button>
+        <button mat-raised-button color="primary" class="submarine" (click)="onDestroyerClick()">Submarine</button>
+        <button mat-raised-button color="primary" class="carrier" (click)="onDestroyerClick()">Carrier</button>
+        <button mat-raised-button  color="primary"  class="battleship" (click)="onDestroyerClick()">Battleship</button>
 
       </div>
 

@@ -1,10 +1,14 @@
 h2{
     text-align: center;
 }
+.targets {
+    display: grid;
+    grid-template-rows:  550px 1fr;
 
 .targets-area {
+    grid-row: 1;
     display: grid;
-    grid-template-columns:  repeat(10, minmax(3rem,1fr));
+    grid-template-columns:  repeat(10, minmax(2rem,1fr));
    ::before {
         content: '';
         width: 0;
@@ -19,13 +23,22 @@ h2{
         * {
         background: rgba(0,0,0,0.1);
         border: 1px white solid;
-        height: 60px;
+        height: 50px;
         :hover{
             background-color: rgb(106, 136, 156);
         }
       }
 
 }
+.status{
+    grid-row: 2;
+    width:100%;
+    height: 200px;
+    border: 1px solid;
+}
+}
+
+
 /*
 .targets {
     display: grid;

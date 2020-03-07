@@ -9,14 +9,14 @@
 .ships{
     display: grid;
     margin: 30px;
-    grid-row: 2;
+    grid-row: 1 / 2;
     grid-column: 3;
 
 }
 .targets{
     display: grid;
     margin: 30px;
+    grid-row: 1/2;
     grid-column: 2;
-    grid-row: 2;
 
 }

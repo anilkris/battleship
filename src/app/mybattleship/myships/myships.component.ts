@@ -24,5 +24,8 @@ export class MyshipsComponent {
     }
   }
 
+  onDestroyerClick() {
+    console.log("on Destroyer clicked");
+  }
 
 }

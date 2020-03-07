@@ -1,74 +1,75 @@
-h2{
-    text-align: center;
+h2 {
+  text-align: center;
 }
-.ships-area {
-    display: grid;
-    grid-template-columns:  repeat(10, minmax(3rem,1fr));
-   ::before {
-        content: '';
-        width: 0;
-        padding-bottom: 100%;
-        grid-row: 1 / 1;
-        grid-column: 1 / 1;
-      }
-      :first-child {
-        grid-row: 1 / 1;
-        grid-column: 1 / 1;
-      }
-        * {
-        background: rgba(0,0,0,0.1);
-        border: 1px white solid;
-        height: 60px;
-        :hover{
-
-        background-color: rgb(106, 136, 156);
-        }
-      }
-
-}
-/*
 .ships {
   display: grid;
-  grid-template-columns:  repeat(11, 1fr);
-  grid-template-rows:  repeate(11, 1fr);
-  justify-content: center;
-  height: 500px;
-  .column-labels {
-    grid-row: 1;
-    grid-column: 2/11;
-    display: flex;
-    flex-direction: row;
-    flex-grow:1;
-    justify-content: space-around;
-    border: 1px solid green;
-  }
-  .row-labels {
-    grid-column: 1;
-    grid-row: 2/12;
-
-    display: grid;
-    align-items: space-around;
-    *{
-        text-align:left;
-        padding-top: 10px;
-        padding-left: 10px;
-
-    }
-  }
+  grid-template-rows: 550px 1fr;
 
   .ships-area {
-      grid-area:2/2/11/11;
-    .row {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: space-between;
-      .column {
-        height: 60px;
-        width: 60px;
-        border: 1px solid blue;
+    display: grid;
+    grid-template-columns: repeat(10, minmax(3rem, 1fr));
+    ::before {
+      content: "";
+      width: 0;
+      padding-bottom: 100%;
+      grid-row: 1 / 1;
+      grid-column: 1 / 1;
+    }
+    :first-child {
+      grid-row: 1 / 1;
+      grid-column: 1 / 1;
+    }
+    * {
+      background: rgba(0, 0, 0, 0.1);
+      border: 1px white solid;
+      height: 50px;
+      :hover {
+        background-color: rgb(106, 136, 156);
       }
     }
   }
+
+  .ship-status {
+    display: grid;
+
+    grid-template-columns: repeat(10, minmax(3rem, 1fr));
+    grid-template-rows: repeat(5, 50px);
+    grid-gap: 10px;
+
+    grid-row: 2;
+    width: 100%;
+    height: 200px;
+
+    .destroyer{
+        grid-column: 1/3;
+        grid-row:1;
+        height: 50px;
+    }
+    .cruiser{
+        grid-column: 4/7;
+        grid-row:2;
+        height: 50px;
+        background-color: rgb(236, 221, 221);
+    }
+    .submarine{
+        grid-column: 7/10;
+        grid-row:3;
+        height: 50px;
+        background-color: rgb(255, 238, 0);
+    }
+ .battleship{
+        grid-column: 8/11;
+        grid-row:1;
+        height: 50px;
+        background-color: rgb(255, 0, 255);
+    }
+  }
+ .carrier{
+        grid-column: 1/6;
+        grid-row:4;
+        height: 50px;
+        background-color: red;
+  }
+  
+
 }
-*/
