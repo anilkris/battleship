@@ -22,11 +22,11 @@
             carrier =5
 
         -->
-        <button mat-raised-button color="primary" class="destroyer" (click)="onDestroyerClick()">Destroyer</button>
-        <button mat-raised-button color="primary" class="cruiser" (click)="onCruiserClick()">Cruiser</button>
-        <button mat-raised-button color="primary" class="submarine" (click)="onSubmarineClick()">Submarine</button>
-        <button mat-raised-button color="primary" class="carrier" (click)="onCarrierClick()">Carrier</button>
-        <button mat-raised-button  color="primary"  class="battleship" (click)="onBattleshipClick()">Battleship</button>
+        <button mat-raised-button color="primary"  class="destroyer" [disabled]="isDestroyerDisabled"  (click)="onDestroyerClick()">Destroyer</button>
+        <button mat-raised-button color="primary"   class="cruiser" [disabled]="isCruiserDisabled"  (click)="onCruiserClick()">Cruiser</button>
+        <button mat-raised-button color="primary" class="submarine"  [disabled]="isSubmarineDisabled" (click)="onSubmarineClick()">Submarine</button>
+        <button mat-raised-button color="primary" class="carrier"   [disabled]="isCarrierDisabled" (click)="onCarrierClick()">Carrier</button>
+        <button mat-raised-button  color="primary"  class="battleship" [disabled]="isBattleshipDisabled" (click)="onBattleshipClick()">Battleship</button>
 
       </div>
 

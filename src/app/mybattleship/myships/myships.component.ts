@@ -16,6 +16,12 @@ export class MyshipsComponent {
   rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
   ship = '';
   placingStarted = false;
+  isDestroyerDisabled = false;
+  isCruiserDisabled = false;
+  isSubmarineDisabled = false;
+  isCarrierDisabled = false;
+  isBattleshipDisabled = false;
+
   constructor() {
     this.gridInit();
   }
@@ -33,26 +39,33 @@ export class MyshipsComponent {
   onDestroyerClick() {
     console.log('on Destroyer clicked');
     this.ship = DESTROYER;
+    this.isDestroyerDisabled = true;
   }
 
   onCruiserClick() {
     console.log('on Cruiser clicked');
     this.ship = CRUISER;
+
+    this.isCruiserDisabled = true;
   }
 
   onSubmarineClick() {
     console.log('on Submarine clicked');
     this.ship = SUBMARINE;
+    this.isSubmarineDisabled = true;
   }
 
   onBattleshipClick() {
     console.log('on Battleship clicked');
     this.ship = BATTLESHIP;
+
+    this.isBattleshipDisabled = true;
   }
 
   onCarrierClick() {
     console.log('on Carrier clicked');
     this.ship = CARRIER;
+    this.isCarrierDisabled = true;
   }
 
   onCellClick(x, y) {
@@ -68,22 +81,30 @@ export class MyshipsComponent {
         case DESTROYER:
                       this.placeDestroyer(x, y);
                       this.placingStarted = false;
+                      this.ship = '';
                       break;
         case BATTLESHIP:
                       this.placeBattleShip(x, y);
                       this.placingStarted = false;
+
+                      this.ship = '';
                       break;
         case SUBMARINE:
-                      this.placeSubCruiser(x, y,SUBMARINE);
+                      this.placeSubCruiser(x, y, SUBMARINE);
                       this.placingStarted = false;
+
+                      this.ship = '';
                       break;
         case CRUISER:
-                      this.placeSubCruiser(x, y,CRUISER);
+                      this.placeSubCruiser(x, y, CRUISER);
                       this.placingStarted = false;
+                      this.ship = '';
                       break;
         case CARRIER:
                       this.placeCarrier(x, y);
                       this.placingStarted = false;
+
+                      this.ship = '';
                       break;
 
 
@@ -97,7 +118,7 @@ export class MyshipsComponent {
     this.grids[x][y].type = this.ship;
     this.grids[x][y].partofShip = this.ship;
   }
-  placeSubCruiser(x, y,type) {
+  placeSubCruiser(x, y, type) {
 
     if (this.grids[x - 1][y].partofShip === type) {
     this.grids[x][y].type = this.ship;
