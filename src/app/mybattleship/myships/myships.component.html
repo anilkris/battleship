@@ -1,11 +1,11 @@
-      <h2> Ships</h2>
+      <h2 class="myclass"> Ships</h2>
   <div class="ships">
    
       <div class="ships-area">
 
       <div class="row" *ngFor="let data of grids; let i = index">
             <div class="column" *ngFor="let cell of data; let j=index" >
-                <div (click)="onCellClick(j,i)">
+                <div  [ngClass]="GetClassDetails(i,j)" (click)="onCellClick(j,i)">
 
                 {{rows[j]}}{{i+1}}
                 </div>

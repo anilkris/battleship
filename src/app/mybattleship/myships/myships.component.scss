@@ -27,6 +27,22 @@ h2 {
         background-color: rgb(106, 136, 156);
       }
     }
+    .destroyer{
+        background-color: rgb(49, 70, 178);
+    }
+
+    .battleship{
+        background-color: rgb(255, 0, 255);
+    }
+    .cruiser {
+        background-color: rgb(236, 221, 221);
+    }
+    .submarine {
+        background-color: rgb(255, 238, 0);
+    }
+    .carrier{
+        background-color: red;
+    }
   }
 
   .ship-status {
@@ -45,6 +61,7 @@ h2 {
         grid-row:1;
         height: 50px;
     }
+
     .cruiser{
         grid-column: 4/7;
         grid-row:2;
