@@ -4,8 +4,11 @@
       <div class="ships-area">
 
       <div class="row" *ngFor="let data of grids; let i = index">
-            <div class="column" *ngFor="let cell of data; let j=index">
+            <div class="column" *ngFor="let cell of data; let j=index" >
+                <div (click)="onCellClick(j,i)">
+
                 {{rows[j]}}{{i+1}}
+                </div>
             </div>
       </div>
 
@@ -20,10 +23,10 @@
 
         -->
         <button mat-raised-button color="primary" class="destroyer" (click)="onDestroyerClick()">Destroyer</button>
-        <button mat-raised-button color="primary" class="cruiser" (click)="onDestroyerClick()">Cruiser</button>
-        <button mat-raised-button color="primary" class="submarine" (click)="onDestroyerClick()">Submarine</button>
-        <button mat-raised-button color="primary" class="carrier" (click)="onDestroyerClick()">Carrier</button>
-        <button mat-raised-button  color="primary"  class="battleship" (click)="onDestroyerClick()">Battleship</button>
+        <button mat-raised-button color="primary" class="cruiser" (click)="onCruiserClick()">Cruiser</button>
+        <button mat-raised-button color="primary" class="submarine" (click)="onSubmarineClick()">Submarine</button>
+        <button mat-raised-button color="primary" class="carrier" (click)="onCarrierClick()">Carrier</button>
+        <button mat-raised-button  color="primary"  class="battleship" (click)="onBattleshipClick()">Battleship</button>
 
       </div>
 
