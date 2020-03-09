@@ -1,16 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { Grid } from '../grid';
+import { Grid,  PlaceOfShips } from '../grid';
 const SUBMARINE = 'submarine';
 const DESTROYER = 'destroyer';
 const CRUISER = 'cruiser';
 const BATTLESHIP = 'battleship';
 const CARRIER = 'carrier';
+
+
 @Component({
   selector: 'app-myships',
   templateUrl: './myships.component.html',
   styleUrls: ['./myships.component.scss']
 })
-export class MyshipsComponent {
+export class MyshipsComponent implements OnInit {
+  ngOnInit(): void {
+    this.updateComputerShips();
+  }
   grids: Grid[][];
   columns = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
@@ -21,6 +26,9 @@ export class MyshipsComponent {
   isSubmarineDisabled = false;
   isCarrierDisabled = false;
   isBattleshipDisabled = false;
+
+  myShips: PlaceOfShips = new PlaceOfShips();
+  computerShips: PlaceOfShips = new PlaceOfShips();
 
   constructor() {
     this.gridInit();
@@ -37,33 +45,28 @@ export class MyshipsComponent {
   }
 
   onDestroyerClick() {
-    console.log('on Destroyer clicked');
     this.ship = DESTROYER;
     this.isDestroyerDisabled = true;
   }
 
   onCruiserClick() {
-    console.log('on Cruiser clicked');
     this.ship = CRUISER;
 
     this.isCruiserDisabled = true;
   }
 
   onSubmarineClick() {
-    console.log('on Submarine clicked');
     this.ship = SUBMARINE;
     this.isSubmarineDisabled = true;
   }
 
   onBattleshipClick() {
-    console.log('on Battleship clicked');
     this.ship = BATTLESHIP;
 
     this.isBattleshipDisabled = true;
   }
 
   onCarrierClick() {
-    console.log('on Carrier clicked');
     this.ship = CARRIER;
     this.isCarrierDisabled = true;
   }
@@ -75,6 +78,7 @@ export class MyshipsComponent {
       this.placingStarted = true;
       this.grids[x][y].type = this.ship;
       this.grids[x][y].partofShip = this.ship;
+      this.updateMyShips(x, y, this.ship);
     } else {
 
       switch (this.ship) {
@@ -86,13 +90,11 @@ export class MyshipsComponent {
         case BATTLESHIP:
                       this.placeBattleShip(x, y);
                       this.placingStarted = false;
-
                       this.ship = '';
                       break;
         case SUBMARINE:
                       this.placeSubCruiser(x, y, SUBMARINE);
                       this.placingStarted = false;
-
                       this.ship = '';
                       break;
         case CRUISER:
@@ -103,20 +105,93 @@ export class MyshipsComponent {
         case CARRIER:
                       this.placeCarrier(x, y);
                       this.placingStarted = false;
-
                       this.ship = '';
                       break;
-
-
-
       }
     }
 
   }
 
+  updateComputerShips() {
+   const    x = Math.floor(Math.random() * 10);
+   const    y = Math.floor(Math.random() * 10);
+   const    orientation = Math.floor(Math.random() * 2);
+   this.updateComputerDestroyer(x, y, orientation);
+
+   console.log(JSON.stringify(this.computerShips,null,2));
+  }
+
+  updateComputerDestroyer(x, y, orientation) {
+    let xy = '';
+    xy = this.rows[x] + (y + 1);
+    this.computerShips.destroyer.push(xy);
+
+    if (orientation == 0) {
+       if (x <= 8) {
+        xy = this.rows[x + 1] + y;
+        this.computerShips.destroyer.push(xy);
+        } else {
+          if (y <= 8) {
+            xy = this.rows[x] + (y + 2);
+            this.computerShips.destroyer.push(xy);
+          } else {
+            xy = this.rows[x] + (y - 1);
+            this.computerShips.destroyer.push(xy);
+          }
+       }
+    } else {
+
+      if (y <= 8) {
+        xy = this.rows[x] + (y + 1);
+        this.computerShips.destroyer.push(xy);
+        } else {
+          if (x <= 8) {
+            xy = this.rows[x + 1] + (y);
+            this.computerShips.destroyer.push(xy);
+          } else {
+            xy = this.rows[x - 1] + (y - 1);
+            this.computerShips.destroyer.push(xy);
+          }
+       }
+
+    }
+  }
+
+  updateMyShips(x, y, ship) {
+    let xy = '';
+    y = y + 1;
+    switch (ship) {
+      case DESTROYER:
+            xy = this.rows[x] + y  ;
+            this.myShips.destroyer.push(xy);
+            break;
+      case BATTLESHIP:
+            xy =  this.rows[x] + y;
+            this.myShips.battleship.push(xy);
+            break;
+      case CRUISER:
+            xy =  this.rows[x] + y;
+            this.myShips.cruiser.push(xy);
+            break;
+      case CARRIER:
+            xy =  this.rows[x] + y;
+            this.myShips.carrier.push(xy);
+            break;
+      case SUBMARINE:
+            xy =  this.rows[x] + y;
+            this.myShips.submarine.push(xy);
+            break;
+
+
+    }
+    console.log(JSON.stringify(this.myShips));
+  }
+
   placeDestroyer(x, y) {
     this.grids[x][y].type = this.ship;
     this.grids[x][y].partofShip = this.ship;
+
+    this.updateMyShips(x, y, this.ship);
   }
   placeSubCruiser(x, y, type) {
 
@@ -127,12 +202,18 @@ export class MyshipsComponent {
     this.grids[x + 1][y].type = this.ship;
     this.grids[x + 1][y].partofShip = this.ship;
 
+    this.updateMyShips(x, y, this.ship);
+    this.updateMyShips(x + 1, y, this.ship);
+
     } else if (this.grids[x][y - 1].partofShip === type) {
     this.grids[x][y].type = this.ship;
     this.grids[x][y].partofShip = this.ship;
 
     this.grids[x][y + 1].type = this.ship;
     this.grids[x][y + 1].partofShip = this.ship;
+
+    this.updateMyShips(x , y, this.ship);
+    this.updateMyShips(x , y + 1, this.ship);
 
     }
 
@@ -150,6 +231,12 @@ export class MyshipsComponent {
 
       this.grids[x + 2][y].type = this.ship;
       this.grids[x + 2][y].partofShip = this.ship;
+
+      this.updateMyShips(x , y, this.ship);
+      this.updateMyShips(x + 1 , y, this.ship);
+      this.updateMyShips(x + 2 , y, this.ship);
+
+
      } else if (this.grids[x][y - 1].partofShip === BATTLESHIP) {
       this.grids[x][y].type = this.ship;
       this.grids[x][y].partofShip = this.ship;
@@ -159,6 +246,10 @@ export class MyshipsComponent {
 
       this.grids[x ][y + 2].type = this.ship;
       this.grids[x ][y + 2].partofShip = this.ship;
+
+      this.updateMyShips(x , y, this.ship);
+      this.updateMyShips(x  , y + 1, this.ship);
+      this.updateMyShips(x  , y + 2, this.ship);
 
      }
 
@@ -177,6 +268,11 @@ export class MyshipsComponent {
       this.grids[x + 3][y].type = this.ship;
       this.grids[x + 3][y].partofShip = this.ship;
 
+      this.updateMyShips(x , y, this.ship);
+      this.updateMyShips(x + 1  , y, this.ship);
+      this.updateMyShips(x + 2  , y, this.ship);
+      this.updateMyShips(x + 3  , y, this.ship);
+
      } else if (this.grids[x][y - 1].partofShip === CARRIER) {
       this.grids[x][y].type = this.ship;
       this.grids[x][y].partofShip = this.ship;
@@ -190,16 +286,20 @@ export class MyshipsComponent {
       this.grids[x ][y + 3].type = this.ship;
       this.grids[x ][y + 3].partofShip = this.ship;
 
+      this.updateMyShips(x , y, this.ship);
+      this.updateMyShips(x  , y + 1, this.ship);
+      this.updateMyShips(x  , y + 2, this.ship);
+      this.updateMyShips(x  , y + 3, this.ship);
+
+
+
      }
 
   }
 
 
     GetClassDetails(y, x) {
-    if (this.grids[x][y].partofShip) {
 
-      console.log(this.grids[x][y].partofShip);
-    }
     return this.grids[x][y].partofShip;
   }
 

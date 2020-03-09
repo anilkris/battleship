@@ -10,4 +10,19 @@ export class Grid {
 }
 
 
+export class PlaceOfShips {
+  submarine: string[];
+  destroyer: string[];
+  cruiser: string[];
+  battleship: string[];
+  carrier: string[];
+  constructor() {
 
+  this.submarine = [];
+  this.destroyer = [];
+  this.cruiser = [];
+  this.battleship = [];
+  this.carrier = [];
+
+  }
+}
