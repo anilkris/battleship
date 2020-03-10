@@ -13,9 +13,7 @@ const CARRIER = 'carrier';
   styleUrls: ['./myships.component.scss']
 })
 export class MyshipsComponent implements OnInit {
-  ngOnInit(): void {
-    this.updateComputerShips();
-  }
+
   grids: Grid[][];
   columns = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
@@ -33,13 +31,15 @@ export class MyshipsComponent implements OnInit {
   constructor() {
     this.gridInit();
   }
+  ngOnInit(): void {
+     this.updateComputerShips();
+  }
   gridInit() {
     this.grids = [];
     for (let i = 0; i < 10; i++) {
       this.grids[i] = [];
       for (let j = 0; j < 10; j++) {
         this.grids[i][j] = new Grid(i, j);
-
       }
     }
   }
@@ -72,8 +72,6 @@ export class MyshipsComponent implements OnInit {
   }
 
   onCellClick(x, y) {
-    console.log(x, y);
-    console.log(this.grids[x][y]);
     if (!this.placingStarted) {
       this.placingStarted = true;
       this.grids[x][y].type = this.ship;
@@ -113,49 +111,239 @@ export class MyshipsComponent implements OnInit {
   }
 
   updateComputerShips() {
-   const    x = Math.floor(Math.random() * 10);
-   const    y = Math.floor(Math.random() * 10);
-   const    orientation = Math.floor(Math.random() * 2);
-   this.updateComputerDestroyer(x, y, orientation);
+   let    x = Math.floor(Math.random() * 10);
+   let    y = Math.floor(Math.random() * 10);
+   let    orientation = Math.floor(Math.random() * 2);
+   const destroyer = this.updateComputerDestroyer(x, y, orientation);
+   destroyer.forEach(x => this.computerShips.destroyer.push(x)) ;
 
-   console.log(JSON.stringify(this.computerShips,null,2));
+   x = Math.floor(Math.random() * 10);
+   y = Math.floor(Math.random() * 10);
+   orientation = Math.floor(Math.random() * 2);
+   const cruiser = this.updateComputerCruiser(x,y,orientation);
+   cruiser.forEach(x => this.computerShips.cruiser.push(x)) ; 
+
+   x = Math.floor(Math.random() * 10);
+   y = Math.floor(Math.random() * 10);
+   orientation = Math.floor(Math.random() * 2);
+   const sub = this.updateComputerCruiser(x,y,orientation);
+   sub.forEach(x => this.computerShips.submarine.push(x)) ;
+
+   x = Math.floor(Math.random() * 10);
+   y = Math.floor(Math.random() * 10);
+   orientation = Math.floor(Math.random() * 2);
+   const battleship = this.updateComputerBattleship(x,y,orientation);
+   battleship.forEach(x => this.computerShips.battleship.push(x)) ;
+
+   x = Math.floor(Math.random() * 10);
+   y = Math.floor(Math.random() * 10);
+   orientation = Math.floor(Math.random() * 2);
+   const carrier = this.updateComputerCarrier(x,y,orientation);
+   carrier.forEach(x => this.computerShips.carrier.push(x)) ;
+
+
+
+
+
+   console.log('Computer Ships' + JSON.stringify(this.computerShips, null, 2));
   }
 
-  updateComputerDestroyer(x, y, orientation) {
+  updateComputerDestroyer(x, y, orientation): any[] {
     let xy = '';
     xy = this.rows[x] + (y + 1);
-    this.computerShips.destroyer.push(xy);
+    const destroyer = [];
 
-    if (orientation == 0) {
-       if (x <= 8) {
-        xy = this.rows[x + 1] + y;
-        this.computerShips.destroyer.push(xy);
-        } else {
+    destroyer.push(xy);
+
+    if (orientation === 0) {
           if (y <= 8) {
             xy = this.rows[x] + (y + 2);
-            this.computerShips.destroyer.push(xy);
+            destroyer.push(xy);
           } else {
-            xy = this.rows[x] + (y - 1);
-            this.computerShips.destroyer.push(xy);
-          }
-       }
-    } else {
+            xy = this.rows[x] + (y);
+            destroyer.push(xy);
 
-      if (y <= 8) {
-        xy = this.rows[x] + (y + 1);
-        this.computerShips.destroyer.push(xy);
-        } else {
-          if (x <= 8) {
-            xy = this.rows[x + 1] + (y);
-            this.computerShips.destroyer.push(xy);
-          } else {
-            xy = this.rows[x - 1] + (y - 1);
-            this.computerShips.destroyer.push(xy);
           }
-       }
+    } else {
+          if (x <= 8) {
+            xy = this.rows[x + 1] + (y + 1);
+            destroyer.push(xy);
+          } else {
+            xy = this.rows[x - 1] + (y + 1);
+
+            destroyer.push(xy);
+          }
 
     }
+    return destroyer;
   }
+
+ updateComputerCruiser(x, y, orientation): any[] {
+    let xy = '';
+    xy = this.rows[x] + (y + 1);
+    const cruiser = [];
+
+    cruiser.push(xy);
+
+    if (orientation === 0) {
+          if (y <= 7) {
+            xy = this.rows[x] + (y + 2);
+            cruiser.push(xy);
+            xy = this.rows[x] + (y + 3);
+            cruiser.push(xy);
+          } else {
+            xy = this.rows[x] + (y);
+            cruiser.push(xy);
+            xy = this.rows[x] + (y - 1);
+            cruiser.push(xy);
+
+          }
+    } else {
+          if (x <= 7) {
+            xy = this.rows[x + 1] + (y + 1);
+            cruiser.push(xy);
+
+            xy = this.rows[x + 2] + (y + 1);
+            cruiser.push(xy);
+          } else {
+            xy = this.rows[x - 1] + (y + 1);
+            cruiser.push(xy);
+            xy = this.rows[x - 2] + (y + 1);
+            cruiser.push(xy);
+ 
+          }
+
+    }
+    return cruiser;
+  }
+
+ 
+  updateComputerBattleship(x, y, orientation): any[] {
+    let xy = '';
+    xy = this.rows[x] + (y + 1);
+    const battleship = [];
+
+    battleship.push(xy);
+
+    if (orientation === 0) {
+          if (y <= 6) {
+            xy = this.rows[x] + (y + 2);
+            battleship.push(xy);
+
+            xy = this.rows[x] + (y + 3);
+            battleship.push(xy);
+
+            xy = this.rows[x] + (y + 4);
+            battleship.push(xy);
+          } else {
+            xy = this.rows[x] + (y);
+            battleship.push(xy);
+            xy = this.rows[x] + (y - 1);
+            battleship.push(xy);
+
+            xy = this.rows[x] + (y - 2);
+            battleship.push(xy);
+
+          }
+    } else {
+          if (x <= 6) {
+            xy = this.rows[x + 1] + (y + 1);
+            battleship.push(xy);
+
+            xy = this.rows[x + 2] + (y + 1);
+            battleship.push(xy);
+
+            xy = this.rows[x + 3] + (y + 1);
+            battleship.push(xy);
+          } else {
+            xy = this.rows[x - 1] + (y + 1);
+            battleship.push(xy);
+
+            xy = this.rows[x - 2] + (y + 1);
+            battleship.push(xy);
+
+            xy = this.rows[x - 3] + (y + 1);
+            battleship.push(xy);
+ 
+          }
+
+    }
+    return battleship;
+  }
+
+
+ 
+  updateComputerCarrier(x, y, orientation): any[] {
+    let xy = '';
+    xy = this.rows[x] + (y + 1);
+    const carrier = [];
+
+    carrier.push(xy);
+
+    if (orientation === 0) {
+          if (y <= 5) {
+            xy = this.rows[x] + (y + 2);
+            carrier.push(xy);
+
+            xy = this.rows[x] + (y + 3);
+            carrier.push(xy);
+
+            xy = this.rows[x] + (y + 4);
+            carrier.push(xy);
+
+            xy = this.rows[x] + (y + 5);
+            carrier.push(xy);
+
+          } else {
+            xy = this.rows[x] + (y);
+            carrier.push(xy);
+            xy = this.rows[x] + (y - 1);
+            carrier.push(xy);
+
+            xy = this.rows[x] + (y - 2);
+            carrier.push(xy);
+
+            xy = this.rows[x] + (y - 3);
+            carrier.push(xy);
+
+          }
+    } else {
+          if (x <= 5) {
+            xy = this.rows[x + 1] + (y + 1);
+            carrier.push(xy);
+
+            xy = this.rows[x + 2] + (y + 1);
+            carrier.push(xy);
+
+            xy = this.rows[x + 3] + (y + 1);
+            carrier.push(xy);
+
+            xy = this.rows[x + 4] + (y + 1);
+            carrier.push(xy);
+            
+          } else {
+            xy = this.rows[x - 1] + (y + 1);
+            carrier.push(xy);
+            xy = this.rows[x - 2] + (y + 1);
+            carrier.push(xy);
+
+            xy = this.rows[x - 3] + (y + 1);
+            carrier.push(xy);
+ 
+            xy = this.rows[x - 4] + (y + 1);
+            carrier.push(xy);
+          }
+
+    }
+    return carrier;
+  }
+
+
+ 
+
+
+
+
 
   updateMyShips(x, y, ship) {
     let xy = '';
@@ -184,7 +372,7 @@ export class MyshipsComponent implements OnInit {
 
 
     }
-    console.log(JSON.stringify(this.myShips));
+    console.log(JSON.stringify(this.myShips, null , 2 ));
   }
 
   placeDestroyer(x, y) {
